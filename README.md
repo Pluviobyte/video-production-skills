@@ -20,6 +20,7 @@
 | --- | --- | --- | --- | --- |
 | `ai-motion-director`<br>AI 动效导演元 Skill | 主题到动效语言 / 元导演 / 反 PPT 质检 | 给一个主题、脚本或简报，先建立 motion thesis、beat graph、组件/素材计划，再控制 HyperFrames/Remotion 进入制作 | Motion-first：视觉隐喻、连续时间线、状态变化、运动语法、anti-PPT gate | [查看页面](docs/ai-motion-director.md) |
 | `reference-video-replica-qc` | 复刻闭环 / 组件沉淀 / 质检 | 参考视频拆解、动效复刻、HyperFrames/Remotion 组件化、五级保真度判定 | 先采样定位、再全帧验收；素材门、运行时门、交付门；MAE/时间偏移/边界帧/PSNR/SSIM/哈希证据 | [查看页面](docs/reference-video-replica-qc.md) |
+| `ui-animation-replica`<br>UI 动效复刻 | 参考视频测量与重建 | UI 产品宣传片、开关切换、卡片轮播、标签列表、缩放推镜这类界面动效的代码复刻 | 先分类再分段、逐元素 code-first 决策、亚像素质心测量、五维打分、帧间二阶差分抖动诊断 | [查看页面](docs/ui-animation-replica.md) |
 | `dark-saas-magic-video`<br>暗色 SaaS 魔术短片 | 风格化正片生成 | 暗色 SaaS / AI 产品短片、工具发布视频、产品能力展示 | Presenton-like magic UI：黑色空间、底部紫光、动感大字、渐变 CTA、漂浮 UI、模型环、导出物件 | [查看页面](docs/dark-saas-magic-video.md) |
 | `black-white-text-opener` | 片头包装 | 新视频片头、教程开场、观点视频开头、产品视频引子 | 纯黑/近黑背景 + 白色大字逐字打出 + 同步 typing click 音效 + 干净转场 | [查看页面](docs/black-white-text-opener.md) |
 
@@ -79,6 +80,7 @@ npx skills add https://github.com/Pluviobyte/video-production-skills --list
 ```bash
 npx skills add https://github.com/Pluviobyte/video-production-skills --skill ai-motion-director
 npx skills add https://github.com/Pluviobyte/video-production-skills --skill reference-video-replica-qc
+npx skills add https://github.com/Pluviobyte/video-production-skills --skill ui-animation-replica
 npx skills add https://github.com/Pluviobyte/video-production-skills --skill dark-saas-magic-video
 npx skills add https://github.com/Pluviobyte/video-production-skills --skill black-white-text-opener
 ```
@@ -87,6 +89,7 @@ npx skills add https://github.com/Pluviobyte/video-production-skills --skill bla
 
 - 给一个主题、脚本或简报，想让 AI 先做运动隐喻、beat graph、组件调度，并避免 PPT 式视频：用 `ai-motion-director`。
 - 要复刻一个已有视频、拆解时间线、把动效沉淀成 HyperFrames/Remotion 组件、验证是否对齐：用 `reference-video-replica-qc`。
+- 要照着参考视频把 UI 动效用代码重建出来，需要逐元素测量、逐版打分，或排查"元素有轻微晃动"这类具体问题：用 `ui-animation-replica`。
 - 要做暗色科技感 SaaS / AI 产品短片：用 `dark-saas-magic-video`。
 - 要给新视频加黑底白字、逐字打字、打字音效开场：用 `black-white-text-opener`。
 
@@ -94,6 +97,7 @@ npx skills add https://github.com/Pluviobyte/video-production-skills --skill bla
 
 - `ai-motion-director` 不替代最终渲染、抽帧、字幕、音频和归档流程；它负责先定义 motion thesis、beat graph、组件/素材计划和 anti-PPT gate。
 - `reference-video-replica-qc` 把保真度拆成源码一致、渲染帧像素一致、编码成片帧对齐、视觉对齐、风格对齐五级。任何像素级结论都必须通过素材、运行时和交付三道逐帧门；手写 HyperFrames/Remotion 复刻通常目标是视觉级对齐和参数化组件沉淀。
+- `ui-animation-replica` 负责"怎么测量、怎么重建、怎么确认对齐"这一段的执行方法：先分类分段，再逐元素决定 code 还是 crop，用亚像素质心测量几何，用五维度打分确认对齐，用帧间二阶差分诊断抖动。它不做保真度定级（那是 `reference-video-replica-qc` 的职责），也不负责从主题自由创作。
 - `dark-saas-magic-video` 是风格级创作 skill，不用于逐帧复刻。
 - `black-white-text-opener` 是生成型开场 skill，默认要求逐字打字和同步 typing click 音效；不用于复用原片或声明像素级对齐。
 
@@ -112,6 +116,7 @@ The repository is not limited to the current skills. Future video-production ski
 | --- | --- | --- | --- |
 | `ai-motion-director` | Topic-to-motion direction / anti-PPT QA | Topic-driven original motion videos, beat graph planning, component routing | Motion-first direction: visual metaphor, state change, motion grammar, asset plan, anti-PPT gate |
 | `reference-video-replica-qc` | Recreation loop / component capture / QA | Reference analysis, motion recreation, HyperFrames/Remotion componentization, five-level fidelity classification | Samples locate failures; full frames approve asset, runtime, and delivery gates with MAE, temporal, boundary, PSNR/SSIM, and hash evidence |
+| `ui-animation-replica` | Reference measurement / rebuilding / jitter repair | UI promo videos, toggle switches, card carousels, label lists, ending push-ins rebuilt as code animation | Classify then segment; per-element code-first decisions; subpixel centroid measurement; five-dimension scoring; frame-to-frame second-difference jitter diagnosis |
 | `dark-saas-magic-video` / Dark SaaS Magic Short | Styled main video | Dark SaaS / AI product shorts | Presenton-like magic UI with black space, purple glow, kinetic type, gradient CTA, floating UI |
 | `black-white-text-opener` | Opener packaging | Opening title cards for new videos | Black background, typed white text, timed typing clicks, clean transition |
 
@@ -121,6 +126,7 @@ Recommended install:
 npx skills add https://github.com/Pluviobyte/video-production-skills --list
 npx skills add https://github.com/Pluviobyte/video-production-skills --skill ai-motion-director
 npx skills add https://github.com/Pluviobyte/video-production-skills --skill reference-video-replica-qc
+npx skills add https://github.com/Pluviobyte/video-production-skills --skill ui-animation-replica
 npx skills add https://github.com/Pluviobyte/video-production-skills --skill dark-saas-magic-video
 npx skills add https://github.com/Pluviobyte/video-production-skills --skill black-white-text-opener
 ```

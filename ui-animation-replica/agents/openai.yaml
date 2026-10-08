@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI 动效复刻"
+  short_description: "把 UI 宣传视频逐帧测量并复刻成 Remotion 代码动画，含抖动诊断"
+  default_prompt: "Use $ui-animation-replica to classify the reference frames, segment shots, decide code-vs-crop per element, measure the geometry with subpixel centroids, build the Remotion composition, then score five dimensions and diagnose any jitter."
